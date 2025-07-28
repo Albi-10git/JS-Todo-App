@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #dfd459;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.note {
+  background: #e7e397;
+  width: 320px;
+  height: 560px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons span {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+h2 {
+  margin: 38px 0 15px 0;
+  font-weight: normal;
+}
+
+#unchecked-list, #checked-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ccc;
+}
+
+li span {
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+li input[type="checkbox"] {
+  margin-left: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.add-task {
+  margin: 20px 0 10px;
+}
+
+.add-task input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  padding: 6px 5px;
+  font-size: 18px;
+  background: transparent;
+  outline: none;
+}
+
+.edit-date {
+  font-size: 14px;
+  color: #555;
+  margin-top: 280px;
+}
+
+.fab {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #666;
+  font-size: 40px;
+  line-height: 46px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.edit-date {
+  font-size: 16px;
+  color: #555;
+  margin-top: auto;
+  padding-bottom: 10px; /* leaves space above the FAB */
+}
