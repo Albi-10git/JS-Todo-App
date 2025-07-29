@@ -4,9 +4,13 @@ const newTaskInput = document.getElementById("new-task");
 const addTaskBtn = document.getElementById("add-task");
 const uncheckedList = document.getElementById("unchecked-list");
 const checkedList = document.getElementById("checked-list");
-
 const savedColor = localStorage.getItem("noteColor");
 if (savedColor) note.style.background = savedColor;
+const editDateDisplay = document.getElementById("edit-date");
+const savedDate = localStorage.getItem("lastEdited");
+if (savedDate) {
+  editDateDisplay.textContent = "Edited " + savedDate;
+}
 
 toggleColor.addEventListener("click", () => {
   const isWhite = note.style.background === "white";
@@ -22,6 +26,7 @@ toggleColor.addEventListener("click", () => {
     document.querySelector(".fab").style.background = "#f9e176"; // FAB becomes yellow
     localStorage.setItem("noteColor", "white");
   }
+  updateEditDate();
 });
 
 function loadTasks() {
@@ -41,6 +46,19 @@ function saveTasks() {
     completed: li.querySelector("input").checked
   }));
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  updateEditDate();
+}
+
+function updateEditDate() {
+  const now = new Date();
+  const formatted = now.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  localStorage.setItem("lastEdited", formatted);
+  editDateDisplay.textContent = "Edited " + formatted;
 }
 
 function createTask(text, completed = false) {
