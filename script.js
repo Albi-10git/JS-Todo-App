@@ -9,7 +9,7 @@ if (savedColor) note.style.background = savedColor;
 const editDateDisplay = document.getElementById("edit-date");
 const savedDate = localStorage.getItem("lastEdited");
 if (savedDate) {
-  editDateDisplay.textContent = "Edited " + savedDate;
+  displayRelativeTime(Number(savedDate));
 }
 
 toggleColor.addEventListener("click", () => {
@@ -50,17 +50,33 @@ function saveTasks() {
 }
 
 function updateEditDate() {
-  const now = new Date();
-  const formatted = now.toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const now = Date.now();
+  localStorage.setItem("lastEdited", now);
+  displayRelativeTime(now);
+}
 
-  localStorage.setItem("lastEdited", formatted);
-  editDateDisplay.textContent = "Edited " + formatted;
+function displayRelativeTime(savedTimestamp) {
+  const now = Date.now();
+  const diffMs = now - savedTimestamp;
+
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  let displayText = "Edited just now";
+
+  if (diffMinutes < 1) {
+    displayText = "Edited just now";
+  } else if (diffMinutes < 60) {
+    displayText = `Edited ${diffMinutes} minute${diffMinutes > 1 ? "s" : ""} ago`;
+  } else if (diffHours < 24) {
+    displayText = `Edited ${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+  } else {
+    displayText = `Edited ${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+  }
+
+  editDateDisplay.textContent = displayText;
 }
 
 function createTask(text, completed = false) {
